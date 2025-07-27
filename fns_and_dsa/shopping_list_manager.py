@@ -7,11 +7,9 @@ def display_menu():
 
 def main():
     shopping_list = []
-
     while True:
         display_menu()
-        choice = int(input("Enter your choice: "))  # <== this exact format
-
+        choice = int(input("Enter your choice: "))
         if choice == 1:
             item = input("Enter item to add: ")
             shopping_list.append(item)
@@ -24,17 +22,14 @@ def main():
             else:
                 print(f"{item} not found in the list.")
         elif choice == 3:
-            if shopping_list:
-                print("Current Shopping List:")
-                for i, item in enumerate(shopping_list, 1):
-                    print(f"{i}. {item}")
-            else:
-                print("Shopping list is empty.")
+            print("Shopping List:")
+            for item in shopping_list:
+                print(f"- {item}")
         elif choice == 4:
             print("Goodbye!")
             break
         else:
-            print("Invalid choice. Please try again.")
+            print("Invalid choice.")
 
 if __name__ == "__main__":
     main()
