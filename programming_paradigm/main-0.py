@@ -1,31 +1,36 @@
-# main-0.py
-
 import sys
 from bank_account import BankAccount
 
 def main():
-    account = BankAccount(100)  # Starting with $100
+    if len(sys.argv) < 4:
+        print("Usage: python main-0.py <account_holder> <initial_balance> <operation> <amount>")
+        return
 
-    if len(sys.argv) < 2:
-        print("Usage: python main-0.py <command>:<amount>")
-        print("Commands: deposit, withdraw, display")
-        sys.exit(1)
+    account_holder = sys.argv[1]
+    try:
+        initial_balance = float(sys.argv[2])
+    except ValueError:
+        print("Initial balance must be a number.")
+        return
 
-    command, *params = sys.argv[1].split(':')
-    amount = float(params[0]) if params else None
+    operation = sys.argv[3].lower()
+    try:
+        amount = float(sys.argv[4])
+    except (IndexError, ValueError):
+        print("Please provide a valid amount.")
+        return
 
-    if command == "deposit" and amount is not None:
+    account = BankAccount(account_holder, initial_balance)
+
+    if operation == "deposit":
         account.deposit(amount)
-        print(f"Deposited: ${amount}")
-    elif command == "withdraw" and amount is not None:
-        if account.withdraw(amount):
-            print(f"Withdrew: ${amount}")
-        else:
-            print("Insufficient funds.")
-    elif command == "display":
-        account.display_balance()
+    elif operation == "withdraw":
+        account.withdraw(amount)
     else:
-        print("Invalid command.")
+        print("Invalid operation. Use 'deposit' or 'withdraw'.")
+        return
+
+    print(f"Current Balance: ${account.balance:.2f}")
 
 if __name__ == "__main__":
     main()
