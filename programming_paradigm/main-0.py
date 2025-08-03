@@ -15,9 +15,9 @@ def main():
 
     account = BankAccount(name, initial_balance)
 
-    # Simulate some operations
+    # Simulate operations
     print(account.deposit(67))
-    print(account.withdraw(50))
+    print(account.withdraw(670))
     print(account.display_balance())
 
 if __name__ == "__main__":
